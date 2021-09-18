@@ -4,10 +4,17 @@
 #include <math.h>
 #include "image.h"
 
+int clamp_integer(int val, int lo, int hi) {
+    return (val < lo) ?  lo : ((val > hi) ? hi : val ); 
+}
+
 float get_pixel(image im, int x, int y, int c)
 {
     // TODO Fill this in
-    return 0;
+    x = clamp_integer(x, 0, im.w-1);
+    y = clamp_integer(y, 0, im.h-1);
+    c = clamp_integer(c, 0, im.c-1);
+    return im.data[x + y*im.w + c*im.w*im.h];
 }
 
 void set_pixel(image im, int x, int y, int c, float v)
